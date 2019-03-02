@@ -1,0 +1,99 @@
+{
+  "project_info": {
+    "project_number": "304237962404",
+    "firebase_url": "https://fir-test1-db197.firebaseio.com",
+    "project_id": "fir-test1-db197",
+    "storage_bucket": "fir-test1-db197.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:304237962404:android:4d4b5b35c21d5e17",
+        "android_client_info": {
+          "package_name": "com.wordpress.shashidharybhat.firebasetest_1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "304237962404-9e9ham0iob4420p37imrb26e8t1iklqn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wordpress.shashidharybhat.firebasetest_1",
+            "certificate_hash": "9ca8bd95ac86cb08c103b75e656f3393eeac7b65"
+          }
+        },
+        {
+          "client_id": "304237962404-tovp1rbc9gtvl1c4rqivr5npm4csfqb1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzc-IPHFPZ9tBANbjeleCXn9ybjP6abTk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "304237962404-tovp1rbc9gtvl1c4rqivr5npm4csfqb1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:304237962404:android:d270bb299b4398fd",
+        "android_client_info": {
+          "package_name": "com.wordpress.shashidharybhat.saamagaana03"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "304237962404-e7h0u3855pb3jpbo8val5k04ac2vjqjc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wordpress.shashidharybhat.saamagaana03",
+            "certificate_hash": "9ca8bd95ac86cb08c103b75e656f3393eeac7b65"
+          }
+        },
+        {
+          "client_id": "304237962404-tovp1rbc9gtvl1c4rqivr5npm4csfqb1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzc-IPHFPZ9tBANbjeleCXn9ybjP6abTk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "304237962404-tovp1rbc9gtvl1c4rqivr5npm4csfqb1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

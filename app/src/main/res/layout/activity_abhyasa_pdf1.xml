@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Abhyasa_pdf1">
+
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/constr"
+        android:layout_width="match_parent"
+        android:layout_height="630dp"
+        tools:context=".Abhyasa_pdf1">
+
+        <com.github.barteksc.pdfviewer.PDFView
+            android:id="@+id/pdf_abhyasa1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="3dp"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+        </com.github.barteksc.pdfviewer.PDFView>
+    </android.support.constraint.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorPrimary"
+        android:orientation="horizontal"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintTop_toBottomOf="@id/constr">
+
+        <Button
+            android:id="@+id/btn_play"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:background="@drawable/ic_play_circle_outline_black_24dp"
+            android:gravity="center_horizontal|clip_horizontal|start" />
+
+        <Button
+            android:id="@+id/stop"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:background="@drawable/ic_stop_black_24dp"
+            android:gravity="right|end" />
+
+        <SeekBar
+            android:id="@+id/seekBar2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

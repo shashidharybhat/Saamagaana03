@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/abhyasagaana"
+            android:title="@string/abhyasagaana" />
+        <item
+            android:id="@+id/swarajathi"
+            android:title="@string/swarajathi" />
+        <item
+            android:id="@+id/varnas"
+            android:title="@string/varnas" />
+        <item
+            android:id="@+id/krithis"
+            android:title="@string/krithis" />
+    </group>
+
+</menu>

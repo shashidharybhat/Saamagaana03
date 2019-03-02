@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Saamagaanav3</string>
+    <string name="krithis">Krithis and Keerthanas</string>
+    <string name="sabhagaana">Sabhagaana</string>
+    <string name="swarajathi">Swajathis and jathiswarams</string>
+    <string name="varnas">Varnas</string>
+    <string name="abhyasagaana">Abhyasagaana</string>
+    <string name="title_activity_navigation_drawer">NavigationDrawer</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_navigator">Navigator</string>
+    <string name="refresh">Refresh</string>
+    <string name="download">Download</string>
+    <string name="audio">Audio</string>
+    <string name="video">Video</string>
+    <string name="about">About</string>
+    <string name="sangeetha">Sangeetha</string>
+    <string name="saamagaana_sangeetha_sabha">Saamagaana Sangeetha Sabha</string>
+    <string name="saamagaana_gmail_com">saamagaana@gmail.com</string>
+    <string name="view_the_Doc">View The Document</string>
+</resources>

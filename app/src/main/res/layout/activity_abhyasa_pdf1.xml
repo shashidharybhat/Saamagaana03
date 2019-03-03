@@ -12,6 +12,8 @@
         android:id="@+id/constr"
         android:layout_width="match_parent"
         android:layout_height="630dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toTopOf="parent"
         tools:context=".Abhyasa_pdf1">
 
         <com.github.barteksc.pdfviewer.PDFView
@@ -29,9 +31,10 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_marginBottom="2dp"
         android:background="@color/colorPrimary"
         android:orientation="horizontal"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/constr">
 
         <Button
@@ -49,7 +52,7 @@
             android:layout_marginLeft="0dp"
             android:layout_marginRight="0dp"
             android:background="@drawable/ic_stop_black_24dp"
-            android:gravity="right|end" />
+            android:gravity="end" />
 
         <SeekBar
             android:id="@+id/seekBar2"

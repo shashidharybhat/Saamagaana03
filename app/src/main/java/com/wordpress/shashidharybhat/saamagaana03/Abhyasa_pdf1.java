@@ -54,7 +54,6 @@ public class Abhyasa_pdf1 extends AppCompatActivity implements View.OnClickListe
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception exception) {
-                    // Handle any errors
                     Log.println(Log.ERROR, "Failure", "It Failed Man!!!!!!");
                 }
             });

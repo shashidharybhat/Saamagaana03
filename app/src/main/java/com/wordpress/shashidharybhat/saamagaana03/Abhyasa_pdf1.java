@@ -42,18 +42,6 @@ public class Abhyasa_pdf1 extends AppCompatActivity implements View.OnClickListe
         book1 = findViewById(R.id.pdf_abhyasa1);
         storage = FirebaseStorage.getInstance();
         storageRef = storage.getReferenceFromUrl("gs://fir-test1-db197.appspot.com");
-        /*storageRef.child("sarali-varisai.pdf").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                book1.fromUri(uri);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                // Handle any errors
-            }
-        });*/
-        //storageRef = storage.getReferenceFromUrl("gs://fir-test1-db197.appspot.com");
         pdfref = storageRef.child("sarali-varisai.pdf");
         try {
             localFile1 = File.createTempFile("sarali-varisai", "pdf");
@@ -71,21 +59,14 @@ public class Abhyasa_pdf1 extends AppCompatActivity implements View.OnClickListe
                 }
             });
         } catch (Exception e) {
-
         }
-
-
-        //book1.fromAsset("sarali-varisai.pdf").load();
-        //book1.fromUri();
         play = findViewById(R.id.btn_play);
         stop = findViewById(R.id.stop);
         seekBar = findViewById(R.id.seekBar2);
         play.setOnClickListener(this);
         stop.setOnClickListener(this);
         handler = new Handler();
-        // play.setOnClickListener(this);
-        //pause.setOnClickListener(this);
-        //stop.setOnClickListener(this);
+
         mdp = MediaPlayer.create(getApplicationContext(), R.raw.sobhillu);
 
         mdp.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {

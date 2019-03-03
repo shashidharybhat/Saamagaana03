@@ -65,8 +65,19 @@ public class Abhyasa_pdf1 extends AppCompatActivity implements View.OnClickListe
         play.setOnClickListener(this);
         stop.setOnClickListener(this);
         handler = new Handler();
+        try {
+            mdp.setDataSource("https://firebasestorage.googleapis.com/v0/b/fir-test1-db197.appspot.com/o/sobhillu.mp3?alt=media&token=04059489-c82c-45b1-8912-34a40258e622");
+            mdp.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer mediaPlayer) {
+                    seekBar.setMax(mdp.getDuration());
 
-        mdp = MediaPlayer.create(getApplicationContext(), R.raw.sobhillu);
+                    changeSeekbar();
+                }
+            });
+        } catch (Exception e) {
+        }
+        // mdp = MediaPlayer.create(getApplicationContext(), R.raw.sobhillu);
 
         mdp.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override

@@ -1,7 +1,12 @@
 package com.wordpress.shashidharybhat.saamagaana03;
 
+import android.content.Context;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
@@ -12,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.barteksc.pdfviewer.PDFView;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -21,26 +27,114 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
+import java.io.IOException;
 
-public class Abhyasa_pdf1 extends AppCompatActivity implements View.OnClickListener {
-    protected SeekBar seekBar;
+public class Abhyasa_pdf1 extends AppCompatActivity implements MediaPlayer.OnPreparedListener {
+
     PDFView book1;
     Button play, stop;
-    MediaPlayer mdp;
+
     int pause_pos = 0;
     File localFile1;
     FirebaseStorage storage;
     StorageReference storageRef;
     StorageReference pdfref;
     private Runnable runnable;
-    private Handler handler;
+    Context context;
+    MediaPlayer mymedia;
+    private SeekBar seekBar;
+    private TextView textView;
+    private MediaPlayer mMediaplayer;
+    private Handler mHandler;
+    private Runnable mRunnable;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_abhyasa_pdf1);
+        context = getApplicationContext();
+        File path = context.getFilesDir();
+        play = findViewById(R.id.btn_play);
+        stop = findViewById(R.id.stop);
+        seekBar = findViewById(R.id.seekBar2);
+        Toast.makeText(getApplicationContext(), "Please wait till the song is ready", Toast.LENGTH_LONG).show();
+        mHandler = new Handler();
+        mMediaplayer = new MediaPlayer();
+        mMediaplayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        fetchAudioUrlFromFirebase();
+        int pos = 0;
+        play.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setBtn(view);
+            }
+        });
+        stop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setBtn(view);
+            }
+        });
+
+
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            /*
+                void onProgressChanged (SeekBar seekBar, int progress, boolean fromUser)
+                    Notification that the progress level has changed. Clients can use the fromUser
+                    parameter to distinguish user-initiated changes from those that occurred programmatically.
+
+                Parameters
+                    seekBar SeekBar : The SeekBar whose progress has changed
+                    progress int : The current progress level. This will be in the range min..max
+                                   where min and max were set by setMin(int) and setMax(int),
+                                   respectively. (The default values for min is 0 and max is 100.)
+                    fromUser boolean : True if the progress change was initiated by the user.
+            */
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                if (mymedia != null && b) {
+                    /*
+                        void seekTo (int msec)
+                            Seeks to specified time position. Same as seekTo(long, int)
+                            with mode = SEEK_PREVIOUS_SYNC.
+
+                        Parameters
+                            msec int: the offset in milliseconds from the start to seek to
+
+                        Throws
+                            IllegalStateException : if the internal player engine has not been initialized
+                    */
+                    mymedia.seekTo(i * 1000);
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+
+        boolean connected = false;
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        connected = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED;
+
+        if (!connected == true) {
+            Toast.makeText(context, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
+        }
+        //File file = new File(path, "sarali-varisai.pdf");
         book1 = findViewById(R.id.pdf_abhyasa1);
-        storage = FirebaseStorage.getInstance();
+        String filepath = Environment.getExternalStorageDirectory() + File.separator + "Saamagaana" + File.separator + "sarali-varisai.pdf";
+        File file = new File(filepath);
+        book1.fromFile(file);
+        /*storage = FirebaseStorage.getInstance();
         storageRef = storage.getReferenceFromUrl("gs://fir-test1-db197.appspot.com");
         pdfref = storageRef.child("sarali-varisai.pdf");
         try {
@@ -58,12 +152,87 @@ public class Abhyasa_pdf1 extends AppCompatActivity implements View.OnClickListe
                 }
             });
         } catch (Exception e) {
+        }*/
+    }
+
+    private void fetchAudioUrlFromFirebase() {
+        final FirebaseStorage storage = FirebaseStorage.getInstance();
+        // Create a storage reference from our app
+        StorageReference storageRef = storage.getReferenceFromUrl("https://firebasestorage.googleapis.com/v0/b/fir-test1-db197.appspot.com/o/sobhillu.mp3?alt=media&token=04059489-c82c-45b1-8912-34a40258e622");
+        storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                try {
+                    // Download url of file
+                    final String url = uri.toString();
+                    mMediaplayer.setDataSource(url);
+                    // wait for media player to get prepare
+                    mMediaplayer.setOnPreparedListener(Abhyasa_pdf1.this);
+                    mMediaplayer.prepareAsync();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.i("TAG", e.getMessage());
+                    }
+                });
+
+    }
+
+    @Override
+    public void onPrepared(MediaPlayer mp) {
+        Toast.makeText(getApplicationContext(), "The song is ready", Toast.LENGTH_SHORT).show();
+        mymedia = mp;
+        initializeSeekBar();
+    }
+
+    public void setBtn(View view) {
+        if (view == findViewById(R.id.btn_play)) {
+            if (mymedia.isPlaying()) {
+                mymedia.pause();
+                pause_pos = mymedia.getCurrentPosition();
+                seekBar.setProgress(pause_pos);
+            } else {
+                mymedia.seekTo(pause_pos);
+                mymedia.start();
+                initializeSeekBar();
+            }
+        } else {
+            if (mHandler != null) {
+                mHandler.removeCallbacks(mRunnable);
+            }
+            pause_pos = 0;
+            seekBar.setProgress(pause_pos);
+            mymedia.stop();
         }
-        play = findViewById(R.id.btn_play);
-        stop = findViewById(R.id.stop);
+    }
+
+    protected void initializeSeekBar() {
+        seekBar.setMax(mymedia.getDuration() / 1000);
+
+        mRunnable = new Runnable() {
+            @Override
+            public void run() {
+                if (mymedia != null) {
+                    int mCurrentPosition = mymedia.getCurrentPosition() / 1000; // In milliseconds
+                    seekBar.setProgress(mCurrentPosition);
+                }
+                mHandler.postDelayed(mRunnable, 1000);
+            }
+        };
+        mHandler.postDelayed(mRunnable, 1000);
+    }
+
+}
+
+       /* play = findViewById(R.id.btn_play);
+         stop = findViewById(R.id.stop);
         seekBar = findViewById(R.id.seekBar2);
-        play.setOnClickListener(this);
-        stop.setOnClickListener(this);
         handler = new Handler();
         try {
             mdp.setDataSource("https://firebasestorage.googleapis.com/v0/b/fir-test1-db197.appspot.com/o/sobhillu.mp3?alt=media&token=04059489-c82c-45b1-8912-34a40258e622");
@@ -71,82 +240,38 @@ public class Abhyasa_pdf1 extends AppCompatActivity implements View.OnClickListe
                 @Override
                 public void onPrepared(MediaPlayer mediaPlayer) {
                     seekBar.setMax(mdp.getDuration());
-
-                    changeSeekbar();
                 }
+
             });
+
+
+
         } catch (Exception e) {
-        }
+            e.printStackTrace();
+        }*/
+
         // mdp = MediaPlayer.create(getApplicationContext(), R.raw.sobhillu);
 
-        mdp.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+        /*mdp.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer mediaPlayer) {
                 seekBar.setMax(mdp.getDuration());
 
                 changeSeekbar();
             }
-        });
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                if (b) {
-                    mdp.seekTo(i);
-                }
-            }
 
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
+        });*/
 
 
-    }
 
-    private void changeSeekbar() {
-        seekBar.setProgress(mdp.getCurrentPosition());
-        if (mdp.isPlaying()) {
-            runnable = new Runnable() {
-                @Override
-                public void run() {
-                    changeSeekbar();
-                }
-            };
-            handler.postDelayed(runnable, 500);
-        }
-    }
 
-    @Override
-    public void onClick(View view) {
 
-        switch (view.getId()) {
-            case R.id.btn_play:
-                if (mdp.isPlaying()) {
-                    mdp.pause();
-                    pause_pos = mdp.getCurrentPosition();
-                } else {
-                    mdp.seekTo(pause_pos);
-                    mdp.start();
-                }
-                break;
-            case R.id.stop:
-                if (mdp != null) {
-                    pause_pos = mdp.getCurrentPosition();
-                    mdp.seekTo(0);
-                    pause_pos = 0;
-                    changeSeekbar();
-                    mdp.stop();
-                    mdp = MediaPlayer.create(getApplicationContext(), R.raw.sobhillu);
-                }
-                break;
-        }
 
-    }
 
-}
+
+
+
+
+
+
+

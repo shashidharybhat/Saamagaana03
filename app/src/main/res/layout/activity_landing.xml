@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Landing">
+
+    <ViewFlipper
+        android:id="@+id/simpleViewFlipper"
+        android:layout_width="389dp"
+        android:layout_height="244dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="12dp">
+
+    </ViewFlipper>
+
+    <Button
+        android:id="@+id/button9"
+        android:layout_width="105dp"
+        android:layout_height="105dp"
+        android:layout_alignLeft="@+id/button4"
+        android:layout_alignBottom="@+id/button10"
+        android:layout_marginLeft="0dp"
+        android:background="@color/colorAccent"
+        android:onClick="events"
+        android:text="Events" />
+
+    <Button
+        android:id="@+id/button10"
+        android:layout_width="105dp"
+        android:layout_height="105dp"
+        android:layout_below="@+id/button8"
+        android:layout_alignLeft="@+id/button8"
+        android:layout_marginLeft="-2dp"
+        android:layout_marginTop="52dp"
+        android:background="@color/colorAccent"
+        android:onClick="about"
+        android:text="About" />
+
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="105dp"
+        android:layout_height="105dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="31dp"
+        android:layout_marginTop="268dp"
+        android:background="@color/colorAccent"
+        android:onClick="student"
+        android:text="Student's Corner" />
+
+    <Button
+        android:id="@+id/button8"
+        android:layout_width="105dp"
+        android:layout_height="105dp"
+        android:layout_alignTop="@+id/button4"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="31dp"
+        android:background="@color/colorAccent"
+        android:onClick="listener"
+        android:text="Listener's Corner" />
+
+</RelativeLayout>

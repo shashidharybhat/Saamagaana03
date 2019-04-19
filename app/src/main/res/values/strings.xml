@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Saamagaanav3</string>
+    <string name="app_name">Saamagaana</string>
     <string name="krithis">Krithis and Keerthanas</string>
     <string name="sabhagaana">Sabhagaana</string>
     <string name="swarajathi">Swajathis and jathiswarams</string>
@@ -22,4 +22,12 @@
     <string name="saamagaana_sangeetha_sabha">Saamagaana Sangeetha Sabha</string>
     <string name="saamagaana_gmail_com">saamagaana@gmail.com</string>
     <string name="view_the_Doc">View The Document</string>
+    <string name="download_Pdf">Download pdf</string>
+    <string name="download_mp3">Download MP3</string>
+    <string name="openFolder">Open Downloaded Folder</string>
+    <string name="downloadStarted">Download Started…</string>
+    <string name="downloadCompleted">Download Completed…</string>
+    <string name="downloadFailed">Download Failed…</string>
+    <string name="downloadAgain">Download Again</string>
+    <string name="download_me">Download Files</string>
 </resources>

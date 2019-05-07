@@ -3,6 +3,7 @@ package com.wordpress.shashidharybhat.saamagaana03;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.Handler;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -26,6 +27,7 @@ public class Landing extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_landing);
+
         simpleViewFlipper = findViewById(R.id.simpleViewFlipper); // get the reference of ViewFlipper
 
         // loop for creating ImageView's
@@ -55,7 +57,7 @@ public class Landing extends AppCompatActivity {
     }
 
     public void listener(View view) {
-        Intent intent = new Intent(this, Listener_corner.class);
+        Intent intent = new Intent(this, All_Tests_Activity.class);
         startActivity(intent);
     }
 

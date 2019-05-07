@@ -34,12 +34,16 @@ import static android.os.Environment.DIRECTORY_DOWNLOADS;
 public class Download_Files extends AppCompatActivity {
 
     private Button downloadPdf, downloadMp3;
+    Context abhyasa;
+    private String[] names = new String[10];
+    private String aud = ".mp3";
+    private String pdf = ".pdf";
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_download__files);
-        if (ContextCompat.checkSelfPermission(Download_Files.this,
+    public Download_Files(Context context) {
+        //super.onCreate(savedInstanceState);
+        //setContentView(R.layout.activity_download__files);
+        abhyasa = context;
+        if (ContextCompat.checkSelfPermission(context,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
 
@@ -63,40 +67,36 @@ public class Download_Files extends AppCompatActivity {
         } else {
             // Permission has already been granted
         }
-        downloadPdf = findViewById(R.id.downloadPdf);
-        downloadMp3 = findViewById(R.id.downloadMp3);
-        downloadPdf.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (isConnectingToInternet())
-                    download("sarali-varisai", ".pdf");
-                else
-                    Toast.makeText(Download_Files.this, "Oops!! There is no internet connection. Please enable internet connection and try again.", Toast.LENGTH_SHORT).show();
 
-            }
-        });
+    }
 
-        downloadMp3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (isConnectingToInternet())
-                    download("sobhillu", ".mp3");
-                else
-                    Toast.makeText(Download_Files.this, "Oops!! There is no internet connection. Please enable internet connection and try again.", Toast.LENGTH_SHORT).show();
+    public void letsDo(int list, int type) {
+        String ext = "";
+        String filename = "";
+        switch (list) {
+            case 1:
+                filename = "sarali-varisai";
+                break;
+            case 2:
+                filename = "sobhillu";
+                break;
+        }
+        switch (type) {
+            case 1:
+                ext = pdf;
+                break;
+            case 2:
+                ext = aud;
+                break;
+        }
 
-            }
-        });
+
+        download(filename, ext);
 
     }
 
 
     //Check if internet is present or not
-    private boolean isConnectingToInternet() {
-        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connectivityManager
-                .getActiveNetworkInfo();
-        return networkInfo != null && networkInfo.isConnected();
-    }
 
     public void downloadFile(Context context, String fileName, String fileExtension, String destinationDirectory, String url) {
 
@@ -125,7 +125,7 @@ public class Download_Files extends AppCompatActivity {
             @Override
             public void onSuccess(Uri uri) {
                 String url = uri.toString();
-                downloadFile(getApplicationContext(), filename, ext, DIRECTORY_DOWNLOADS, url);
+                downloadFile(abhyasa, filename, ext, DIRECTORY_DOWNLOADS, url);
 
             }
         }).addOnFailureListener(new OnFailureListener() {

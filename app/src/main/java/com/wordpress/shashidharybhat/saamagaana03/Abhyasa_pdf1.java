@@ -28,22 +28,23 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 
-public class Abhyasa_pdf1 extends AppCompatActivity implements MediaPlayer.OnPreparedListener {
+public class Abhyasa_pdf1 extends AppCompatActivity {
 
     PDFView book1;
     Button play, stop;
 
     int pause_pos = 0;
-    File localFile1;
-    FirebaseStorage storage;
-    StorageReference storageRef;
-    StorageReference pdfref;
-    private Runnable runnable;
+    //File localFile1;
+    //FirebaseStorage storage;
+    //StorageReference storageRef;
+    //StorageReference pdfref;
+    //private Runnable runnable;
     Context context;
     MediaPlayer mymedia;
     private SeekBar seekBar;
-    private TextView textView;
+    //private TextView textView;
     private MediaPlayer mMediaplayer;
     private Handler mHandler;
     private Runnable mRunnable;
@@ -60,9 +61,9 @@ public class Abhyasa_pdf1 extends AppCompatActivity implements MediaPlayer.OnPre
         seekBar = findViewById(R.id.seekBar2);
         Toast.makeText(getApplicationContext(), "Please wait till the song is ready", Toast.LENGTH_LONG).show();
         mHandler = new Handler();
-        mMediaplayer = new MediaPlayer();
-        mMediaplayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-        fetchAudioUrlFromFirebase();
+        //mMediaplayer = new MediaPlayer();
+
+        fetchAudio();
         int pos = 0;
         play.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,7 +134,7 @@ public class Abhyasa_pdf1 extends AppCompatActivity implements MediaPlayer.OnPre
         book1 = findViewById(R.id.pdf_abhyasa1);
         String filepath = Environment.getExternalStorageDirectory() + File.separator + "Saamagaana" + File.separator + "sarali-varisai.pdf";
         File file = new File(filepath);
-        book1.fromFile(file);
+        book1.fromFile(file).load();
         /*storage = FirebaseStorage.getInstance();
         storageRef = storage.getReferenceFromUrl("gs://fir-test1-db197.appspot.com");
         pdfref = storageRef.child("sarali-varisai.pdf");
@@ -155,23 +156,30 @@ public class Abhyasa_pdf1 extends AppCompatActivity implements MediaPlayer.OnPre
         }*/
     }
 
-    private void fetchAudioUrlFromFirebase() {
-        final FirebaseStorage storage = FirebaseStorage.getInstance();
+    private void fetchAudio() {
+
+        //final FirebaseStorage storage = FirebaseStorage.getInstance();
+        String filepath = Environment.getExternalStorageDirectory() + File.separator + "Saamagaana" + File.separator + "sobhillu.mp3";
+        //File file = new File(filepath);
+
+        // Download url of file
+        //final String url = uri.toString();
+        mMediaplayer = MediaPlayer.create(this, Uri.parse(filepath));
+        //mMediaplayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        // wait for media player to get prepare
+        Toast.makeText(getApplicationContext(), "The song is ready", Toast.LENGTH_SHORT).show();
+        mymedia = mMediaplayer;
+        initializeSeekBar();
+        // mMediaplayer.setOnPreparedListener(Abhyasa_pdf1.this);
+        //mMediaplayer.prepareAsync();
+
+
         // Create a storage reference from our app
-        StorageReference storageRef = storage.getReferenceFromUrl("https://firebasestorage.googleapis.com/v0/b/fir-test1-db197.appspot.com/o/sobhillu.mp3?alt=media&token=04059489-c82c-45b1-8912-34a40258e622");
+        /*StorageReference storageRef = storage.getReferenceFromUrl("https://firebasestorage.googleapis.com/v0/b/fir-test1-db197.appspot.com/o/sobhillu.mp3?alt=media&token=04059489-c82c-45b1-8912-34a40258e622");
         storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
-                try {
-                    // Download url of file
-                    final String url = uri.toString();
-                    mMediaplayer.setDataSource(url);
-                    // wait for media player to get prepare
-                    mMediaplayer.setOnPreparedListener(Abhyasa_pdf1.this);
-                    mMediaplayer.prepareAsync();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+
 
             }
         })
@@ -180,25 +188,27 @@ public class Abhyasa_pdf1 extends AppCompatActivity implements MediaPlayer.OnPre
                     public void onFailure(@NonNull Exception e) {
                         Log.i("TAG", e.getMessage());
                     }
-                });
+                });*/
 
     }
 
-    @Override
+    /*@Override
     public void onPrepared(MediaPlayer mp) {
         Toast.makeText(getApplicationContext(), "The song is ready", Toast.LENGTH_SHORT).show();
         mymedia = mp;
         initializeSeekBar();
-    }
+    }*/
 
     public void setBtn(View view) {
         if (view == findViewById(R.id.btn_play)) {
             if (mymedia.isPlaying()) {
                 mymedia.pause();
                 pause_pos = mymedia.getCurrentPosition();
+
                 seekBar.setProgress(pause_pos);
             } else {
                 mymedia.seekTo(pause_pos);
+
                 mymedia.start();
                 initializeSeekBar();
             }

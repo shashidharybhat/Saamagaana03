@@ -146,8 +146,5 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    public void download(View view) {
-        Intent intent = new Intent(MainActivity.this, Download_Files.class);
-        startActivity(intent);
-    }
+
 }

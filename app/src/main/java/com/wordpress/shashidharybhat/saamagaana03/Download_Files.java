@@ -105,12 +105,11 @@ public class Download_Files extends AppCompatActivity {
                 getSystemService(Context.DOWNLOAD_SERVICE);
         Uri uri = Uri.parse(url);
         DownloadManager.Request request = new DownloadManager.Request(uri);
-
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
         //request.setDestinationInExternalFilesDir(context, destinationDirectory, fileName + fileExtension);4
         request.setDestinationInExternalPublicDir("/Saamagaana", fileName + fileExtension);
+        long downloadId = downloadmanager.enqueue(request);
 
-        downloadmanager.enqueue(request);
     }
 
     public void download(final String filename, final String ext) {

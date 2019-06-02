@@ -48,6 +48,7 @@ public class Abhyasa_pdf1 extends AppCompatActivity {
     private MediaPlayer mMediaplayer;
     private Handler mHandler;
     private Runnable mRunnable;
+    String filepath;
 
 
     @Override
@@ -64,7 +65,6 @@ public class Abhyasa_pdf1 extends AppCompatActivity {
         //mMediaplayer = new MediaPlayer();
 
         fetchAudio();
-        int pos = 0;
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -122,12 +122,12 @@ public class Abhyasa_pdf1 extends AppCompatActivity {
         });
 
 
-        boolean connected = false;
+        boolean connected;
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         connected = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
                 connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED;
 
-        if (!connected == true) {
+        if (!connected) {
             Toast.makeText(context, "Please check your Internet Connection", Toast.LENGTH_SHORT).show();
         }
         //File file = new File(path, "sarali-varisai.pdf");
@@ -156,10 +156,18 @@ public class Abhyasa_pdf1 extends AppCompatActivity {
         }*/
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (mymedia.isPlaying()) {
+            mymedia.stop();
+        }
+    }
+
     private void fetchAudio() {
 
         //final FirebaseStorage storage = FirebaseStorage.getInstance();
-        String filepath = Environment.getExternalStorageDirectory() + File.separator + "Saamagaana" + File.separator + "sobhillu.mp3";
+        filepath = Environment.getExternalStorageDirectory() + File.separator + "Saamagaana" + File.separator + "sobhillu.mp3";
         //File file = new File(filepath);
 
         // Download url of file
@@ -175,20 +183,20 @@ public class Abhyasa_pdf1 extends AppCompatActivity {
 
 
         // Create a storage reference from our app
-        /*StorageReference storageRef = storage.getReferenceFromUrl("https://firebasestorage.googleapis.com/v0/b/fir-test1-db197.appspot.com/o/sobhillu.mp3?alt=media&token=04059489-c82c-45b1-8912-34a40258e622");
-        storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
+        //StorageReference storageRef = storage.getReferenceFromUrl("https://firebasestorage.googleapis.com/v0/b/fir-test1-db197.appspot.com/o/sobhillu.mp3?alt=media&token=04059489-c82c-45b1-8912-34a40258e622");
+        //storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+        //   @Override
+        //   public void onSuccess(Uri uri) {
 
 
-            }
-        })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.i("TAG", e.getMessage());
-                    }
-                });*/
+        //  }
+        //})
+        //        .addOnFailureListener(new OnFailureListener() {
+        //          @Override
+        //         public void onFailure(@NonNull Exception e) {
+        //         Log.i("TAG", e.getMessage());
+        //       }
+        //   });*/
 
     }
 
@@ -206,6 +214,10 @@ public class Abhyasa_pdf1 extends AppCompatActivity {
                 pause_pos = mymedia.getCurrentPosition();
 
                 seekBar.setProgress(pause_pos);
+            } else if (pause_pos == 0 && !mymedia.isPlaying()) {
+                fetchAudio();
+                mymedia.start();
+                initializeSeekBar();
             } else {
                 mymedia.seekTo(pause_pos);
 
@@ -271,17 +283,3 @@ public class Abhyasa_pdf1 extends AppCompatActivity {
             }
 
         });*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
